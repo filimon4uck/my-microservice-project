@@ -91,6 +91,12 @@ lesson-7/
 - Outputs:
   - ECR repository URL.
 
+### 4. EKS (modules/eks)
+Creates an EKS Kubernetes cluster.
+
+Outputs cluster connection info (endpoint, kubeconfig).
+
+
 ---
 
 ##  Getting Started
@@ -98,7 +104,8 @@ lesson-7/
 ###  Prerequisites
 - [AWS CLI](https://aws.amazon.com/cli/) — configured with credentials and default region.
 - [Terraform](https://developer.hashicorp.com/terraform/install) — installed locally.
-
+- kubectl — for Kubernetes cluster management.
+- Helm — package manager for Kubernetes.
 ---
 
 ###  Steps
