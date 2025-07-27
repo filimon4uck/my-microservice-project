@@ -34,6 +34,7 @@ spec:
 
     COMMIT_EMAIL = "jenkins@localhost"
     COMMIT_NAME  = "jenkins"
+    
   }
 
   stages {
@@ -70,6 +71,7 @@ spec:
 
               git add values.yaml
               git commit -m "Update image tag to $IMAGE_TAG" || echo "No changes to commit"
+              git remote set-url origin https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
               git push origin lesson-8-9
             '''
           }
