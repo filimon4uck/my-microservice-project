@@ -18,7 +18,7 @@ module "vpc" {
 
 module "ecr" {
   source      = "./modules/ecr"
-  repository_name    = "lesson-7-ecr/app"
+  repository_name    = "lesson-7-ecr"
   scan_on_push = true
 }
 
@@ -53,7 +53,7 @@ provider "kubernetes" {
 }
 
 provider "helm" {
-  kubernetes = {
+  kubernetes {
     host                   = data.aws_eks_cluster.eks.endpoint
     cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
     token                  = data.aws_eks_cluster_auth.eks.token
