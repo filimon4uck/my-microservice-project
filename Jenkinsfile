@@ -59,7 +59,7 @@ spec:
           withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PAT')]) {
             sh '''
               git clone https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
-              cd my-microservice-project/lesson-8-9/charts/django-app
+              cd my-microservice-project/lesson-8-9/lesson-8-9/charts/django-app
 
 
               sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
@@ -68,7 +68,7 @@ spec:
               git config user.name "$COMMIT_NAME"
 
               git add values.yaml
-              git commit -m "Update image tag to $IMAGE_TAG"
+              git commit -m "Update image tag to $IMAGE_TAG || echo "No changes to commit"
               git push origin lesson-8-9
             '''
           }
