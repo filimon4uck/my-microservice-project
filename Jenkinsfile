@@ -28,8 +28,8 @@ spec:
   }
 
   environment {
-    ECR_REGISTRY = "518036921225.dkr.ecr.eu-central-1.amazonaws.com/lesson-7-ecr"
-    IMAGE_NAME   = "app"  
+    // Повна назва репозиторію з app
+    ECR_REGISTRY = "518036921225.dkr.ecr.eu-central-1.amazonaws.com/lesson-7-ecr/app"
     IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
 
     COMMIT_EMAIL = "jenkins@localhost"
@@ -69,7 +69,7 @@ spec:
               git config user.name "$COMMIT_NAME"
 
               git add values.yaml
-              git commit -m "Update image tag to $IMAGE_TAG"
+              git commit -m "Update image tag to $IMAGE_TAG" || echo "No changes to commit"
               git push origin $REPO_BRANCH
             '''
           }
