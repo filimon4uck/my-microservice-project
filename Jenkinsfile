@@ -29,13 +29,13 @@ spec:
 
   environment {
     ECR_REGISTRY = "518036921225.dkr.ecr.eu-central-1.amazonaws.com/lesson-7-ecr"
-    IMAGE_NAME   = "app"
+    IMAGE_NAME   = ""  // ← якщо пушиш прямо в lesson-7-ecr без /app
     IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
 
     COMMIT_EMAIL = "jenkins@localhost"
     COMMIT_NAME  = "jenkins"
     REPO_URL     = "https://github.com/filimon4uck/my-microservice-project.git"
-    REPO_BRANCH  = "lesson-4"
+    REPO_BRANCH  = "lesson-8-9"
   }
 
   stages {
@@ -44,9 +44,9 @@ spec:
         container('kaniko') {
           sh '''
             /kaniko/executor \
-             --context `pwd`/lesson-4/django \
+              --context `pwd`/lesson-4/django \
               --dockerfile Dockerfile \
-              --destination=$ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG \
+              --destination=$ECR_REGISTRY:$IMAGE_TAG \
               --cache=true \
               --insecure \
               --skip-tls-verify
@@ -60,8 +60,8 @@ spec:
         container('git') {
           withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PAT')]) {
             sh '''
-              git clone --depth 1 https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
-              cd my-microservice-project/charts/django-app
+              git clone --depth 1 --branch $REPO_BRANCH https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
+              cd my-microservice-project/lesson-8-9/charts/django-app
 
               sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
 
