@@ -53,8 +53,8 @@ spec:
         container('kaniko') {
           sh '''
             /kaniko/executor \
-                --context=`pwd`/lesson-4/django \
-                --dockerfile=`pwd`/lesson-4/django/Dockerfile \
+                --context=lesson-4/django \
+                --dockerfile=lesson-4/django/Dockerfile
                 --destination=${ECR_REGISTRY}:${IMAGE_TAG} \
                 --cache=true \
                 --insecure \
