@@ -60,6 +60,7 @@ spec:
             sh '''
               git clone https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
               git checkout lesson-8-9
+              git config --global --add safe.directory $(pwd)
               cd ./lesson-8-9/charts/django-app
 
 
