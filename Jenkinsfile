@@ -29,7 +29,7 @@ spec:
 
   environment {
     ECR_REGISTRY = "518036921225.dkr.ecr.eu-central-1.amazonaws.com/lesson-7-ecr"
-    IMAGE_NAME   = ""  // ← якщо пушиш прямо в lesson-7-ecr без /app
+    IMAGE_NAME   = "app"  
     IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
 
     COMMIT_EMAIL = "jenkins@localhost"
