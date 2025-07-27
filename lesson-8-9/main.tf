@@ -18,7 +18,7 @@ module "vpc" {
 
 module "ecr" {
   source      = "./modules/ecr"
-  repository_name    = "lesson-7-ecr"
+  repository_name    = "lesson-7-ecr/app"
   scan_on_push = true
 }
 
