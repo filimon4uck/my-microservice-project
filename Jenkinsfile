@@ -1,109 +1,88 @@
-// pipeline {
-//   agent {
-//     kubernetes {
-//       yaml """
-// apiVersion: v1
-// kind: Pod
-// metadata:
-//   labels:
-//     some-label: jenkins-kaniko
-// spec:
-//   serviceAccountName: jenkins-sa
-//   containers:
-//     - name: kaniko
-//       image: gcr.io/kaniko-project/executor:v1.16.0-debug
-//       imagePullPolicy: Always
-//       command:
-//         - sleep
-//       args:
-//         - 99d
-//     - name: git
-//       image: alpine/git
-//       command:
-//         - sleep
-//       args:
-//         - 99d
-// """
-//     }
-//   }
-
-//   environment {
-//     // Повна назва репозиторію з app
-//     ECR_REGISTRY = "518036921225.dkr.ecr.eu-central-1.amazonaws.com/lesson-7-ecr/app"
-//     IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
-
-//     COMMIT_EMAIL = "jenkins@localhost"
-//     COMMIT_NAME  = "jenkins"
-//     REPO_URL     = "https://github.com/filimon4uck/my-microservice-project.git"
-//     REPO_BRANCH  = "lesson-8-9"
-//   }
-
-//   stages {
-//     stage('Build & Push Docker Image') {
-//       steps {
-//         container('kaniko') {
-//           sh '''
-//             /kaniko/executor \
-//               --context `pwd`/lesson-4/django \
-//               --dockerfile Dockerfile \
-//               --destination=$ECR_REGISTRY:$IMAGE_TAG \
-//               --cache=true \
-//               --insecure \
-//               --skip-tls-verify
-//           '''
-//         }
-//       }
-//     }
-
-//     stage('Update Chart Tag in Git') {
-//       steps {
-//         container('git') {
-//           withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PAT')]) {
-//             sh '''
-//               git clone --depth 1 --branch $REPO_BRANCH https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
-//               cd my-microservice-project/lesson-8-9/charts/django-app
-
-//               sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
-
-//               git config user.email "$COMMIT_EMAIL"
-//               git config user.name "$COMMIT_NAME"
-
-//               git add values.yaml
-//               git commit -m "Update image tag to $IMAGE_TAG" || echo "No changes to commit"
-//               git push origin $REPO_BRANCH
-//             '''
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
 pipeline {
-  agent any
+  agent {
+    kubernetes {
+      yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    some-label: jenkins-kaniko
+spec:
+  serviceAccountName: jenkins-sa
+  containers:
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:v1.16.0-debug
+      imagePullPolicy: Always
+      command: ["sleep"]
+      args: ["99d"]
+    - name: git
+      image: alpine/git
+      command: ["sleep"]
+      args: ["99d"]
+"""
+    }
+  }
 
   environment {
-    REPO_URL = "https://github.com/filimon4uck/my-microservice-project.git"
-    REPO_BRANCH = "lesson-4" // або lesson-4, lesson-8-9 — залежить від тебе
+    ECR_REGISTRY = "518036921225.dkr.ecr.eu-central-1.amazonaws.com/lesson-7-ecr/app"
+    IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
+
+    COMMIT_EMAIL = "jenkins@localhost"
+    COMMIT_NAME  = "jenkins"
+
+    REPO_URL     = "https://github.com/filimon4uck/my-microservice-project.git"
+    REPO_BRANCH  = "lesson-8-9"
   }
 
   stages {
-    stage('Clone repository') {
+    stage('Checkout') {
       steps {
-        withCredentials([usernamePassword(
-          credentialsId: 'github-token',
-          usernameVariable: 'GIT_USERNAME',
-          passwordVariable: 'GIT_PASSWORD'
-        )]) {
+        checkout([
+          $class: 'GitSCM',
+          branches: [[name: "*/${env.REPO_BRANCH}"]],
+          userRemoteConfigs: [[
+            url: "${env.REPO_URL}",
+            credentialsId: 'github-token'
+          ]]
+        ])
+      }
+    }
+
+    stage('Build & Push Docker Image') {
+      steps {
+        container('kaniko') {
           sh '''
-            git clone --depth 1 --branch $REPO_BRANCH https://$GIT_USERNAME:$GIT_PASSWORD@github.com/filimon4uck/my-microservice-project.git repo
+            /kaniko/executor \
+              --context `pwd`/lesson-4/django \
+              --dockerfile Dockerfile \
+              --destination=$ECR_REGISTRY:$IMAGE_TAG \
+              --cache=true \
+              --insecure \
+              --skip-tls-verify
           '''
         }
       }
     }
 
-    stage('List files') {
+    stage('Update Chart Tag in Git') {
       steps {
-        sh 'ls -la repo'
+        container('git') {
+          withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PAT')]) {
+            sh '''
+              git clone --depth 1 --branch $REPO_BRANCH https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
+              cd my-microservice-project/lesson-8-9/charts/django-app
+
+              sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
+
+              git config user.email "$COMMIT_EMAIL"
+              git config user.name "$COMMIT_NAME"
+
+              git add values.yaml
+              git commit -m "Update image tag to $IMAGE_TAG" || echo "No changes to commit"
+              git push origin $REPO_BRANCH
+            '''
+          }
+        }
       }
     }
   }
