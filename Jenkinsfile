@@ -58,12 +58,11 @@ spec:
         container('git') {
           withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PAT')]) {
             sh '''
+              git config --global --add safe.directory /home/jenkins/agent/workspace/django-docker
               git clone https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
               git checkout lesson-8-9
-              git config --global --add safe.directory $(pwd)
+              ls -la
               cd ./lesson-8-9/charts/django-app
-
-
               sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
 
               git config user.email "$COMMIT_EMAIL"
