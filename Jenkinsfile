@@ -59,7 +59,7 @@ spec:
           withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PAT')]) {
             sh '''
               git clone https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
-              checkout lesson-8-9
+              git checkout lesson-8-9
               cd ./lesson-8-9/charts/django-app
 
 
