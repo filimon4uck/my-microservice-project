@@ -9,11 +9,6 @@ controller:
     port: 80
     targetPort: 8080
 
-  serviceAccount:
-     name: jenkins-sa
-     create: false
-
-
   resources:
     limits:
       cpu: "500m"
@@ -37,3 +32,44 @@ controller:
     - docker-plugin:latest
     - docker-workflow:latest
     - job-dsl:latest
+
+  serviceAccount:
+    name: jenkins-sa
+    create: false
+
+  JCasC:
+    configScripts:
+      seed-job: |
+        jobs:
+          - script: >
+              job('seed-job') {
+                description('Job to generate pipeline for Django project')
+                scm {
+                  git {
+                    remote {
+                      url('https://github.com/filimon4uck/my-microservice-project.git')
+                    }
+                    branches('*/lesson-4')
+                  }
+                }
+                steps {
+                  dsl {
+                    text('''
+                      pipelineJob("goit-django-docker") {
+                        definition {
+                          cpsScm {
+                            scm {
+                              git {
+                                remote {
+                                  url("https://github.com/filimon4uck/my-microservice-project.git")
+                                }
+                                branches("*/lesson-4")
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ''')
+                  }
+                }
+              }
