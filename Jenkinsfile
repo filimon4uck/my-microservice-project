@@ -133,7 +133,7 @@ spec:
           sh '''
             /kaniko/executor \\
               --context `pwd`/lesson-4/django \\
-              --dockerfile `pwd`/Dockerfile \\
+              --dockerfile ./Dockerfile \\
               --destination=$ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG \\
               --cache=true \\
               --insecure \\
