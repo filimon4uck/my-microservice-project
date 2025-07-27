@@ -58,8 +58,9 @@ spec:
         container('git') {
           withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PAT')]) {
             sh '''
-              git clone <https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git>
-              cd lesson-8-9/django-app/
+              git clone https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
+              cd my-microservice-project/lesson-8-9/charts/django-app
+
 
               sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
 
