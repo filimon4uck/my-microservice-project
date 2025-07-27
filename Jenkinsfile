@@ -53,12 +53,12 @@ spec:
         container('kaniko') {
           sh '''
             /kaniko/executor \
-              --context `pwd`/lesson-4/django \
-              --dockerfile Dockerfile \
-              --destination=$ECR_REGISTRY:$IMAGE_TAG \
-              --cache=true \
-              --insecure \
-              --skip-tls-verify
+                --context=`pwd`/lesson-4/django \
+                --dockerfile=`pwd`/lesson-4/django/Dockerfile \
+                --destination=${ECR_REGISTRY}:${IMAGE_TAG} \
+                --cache=true \
+                --insecure \
+                --skip-tls-verify
           '''
         }
       }
