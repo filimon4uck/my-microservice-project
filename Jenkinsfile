@@ -90,7 +90,7 @@ pipeline {
     stage('Clone repository') {
       steps {
         withCredentials([usernamePassword(
-          credentialsId: 'github-creds',
+          credentialsId: 'github-token',
           usernameVariable: 'GIT_USERNAME',
           passwordVariable: 'GIT_PASSWORD'
         )]) {
