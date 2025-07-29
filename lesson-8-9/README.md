@@ -12,8 +12,68 @@ This project provisions an AWS infrastructure using **Terraform**, including:
 
 ##  Project Structure
 
-<pre>  <b>lesson-8-9/</b> ├── <b>main.tf</b> # Main entry point for Terraform modules ├── <b>backend.tf</b> # S3 + DynamoDB backend config ├── <b>outputs.tf</b> # General resource outputs ├── <b>modules/</b> # Terraform modules │ │ ├── <b>s3-backend/</b> # Remote state backend module │ │ ├── s3.tf # S3 bucket definition │ │ ├── dynamodb.tf # DynamoDB table for locking │ │ ├── variables.tf # Input variables │ │ └── outputs.tf # Outputs │ │ ├── <b>vpc/</b> # Virtual Private Cloud module │ │ ├── vpc.tf # VPC, subnets, IGW │ │ ├── routes.tf # Route tables │ │ ├── variables.tf │ │ └── outputs.tf │ │ ├── <b>ecr/</b> # Elastic Container Registry module │ │ ├── ecr.tf # ECR repository │ │ ├── variables.tf │ │ └── outputs.tf │ │ ├── <b>eks/</b> # Elastic Kubernetes Service module │ │ ├── eks.tf # EKS cluster definition │ │ ├── aws_ebs_csi_driver.tf # EBS CSI Driver plugin │ │ ├── variables.tf │ │ └── outputs.tf │ │ ├── <b>jenkins/</b> # Jenkins Helm deployment │ │ ├── jenkins.tf # Helm release for Jenkins │ │ ├── variables.tf │ │ ├── providers.tf │ │ ├── values.yaml # Helm chart values for Jenkins │ │ └── outputs.tf │ │ └── <b>argo_cd/</b> # Argo CD Helm deployment │ ├── argo.tf # Helm release for Argo CD │ ├── variables.tf │ ├── providers.tf │ ├── values.yaml # Helm chart values for Argo CD │ ├── outputs.tf │ └── <b>charts/</b> # Argo CD custom Helm chart │ ├── Chart.yaml │ ├── values.yaml # List of applications & repositories │ └── templates/ │ ├── application.yaml │ └── repository.yaml ├── <b>charts/</b> # Application Helm charts │ │ └── <b>django-app/</b> # Django app Helm chart │ ├── templates/ │ │ ├── deployment.yaml │ │ ├── service.yaml │ │ ├── configmap.yaml │ │ ├── hpa.yaml │ │ ├── postgres-deployment.yaml │ │ ├── postgres-service.yaml │ │ └── postgress-pvc.yaml │ ├── Chart.yaml │ └── values.yaml </pre>
-
+lesson-8-9/
+│
+├── main.tf # Main entry point for Terraform modules
+├── backend.tf # S3 + DynamoDB backend config
+├── outputs.tf # General resource outputs
+│
+├── modules/
+│ ├── s3-backend/
+│ │ ├── s3.tf
+│ │ ├── dynamodb.tf
+│ │ ├── variables.tf
+│ │ └── outputs.tf
+│ │
+│ ├── vpc/
+│ │ ├── vpc.tf
+│ │ ├── routes.tf
+│ │ ├── variables.tf
+│ │ └── outputs.tf
+│ │
+│ ├── ecr/
+│ │ ├── ecr.tf
+│ │ ├── variables.tf
+│ │ └── outputs.tf
+│ │
+│ ├── eks/
+│ │ ├── eks.tf
+│ │ ├── aws_ebs_csi_driver.tf
+│ │ ├── variables.tf
+│ │ └── outputs.tf
+│ │
+│ ├── jenkins/
+│ │ ├── jenkins.tf
+│ │ ├── variables.tf
+│ │ ├── providers.tf
+│ │ ├── values.yaml
+│ │ └── outputs.tf
+│ │
+│ └── argo_cd/
+│ ├── argo.tf
+│ ├── variables.tf
+│ ├── providers.tf
+│ ├── values.yaml
+│ ├── outputs.tf
+│ └── charts/
+│ ├── Chart.yaml
+│ ├── values.yaml
+│ └── templates/
+│ ├── application.yaml
+│ └── repository.yaml
+│
+├── charts/
+│ └── django-app/
+│ ├── templates/
+│ │ ├── deployment.yaml
+│ │ ├── service.yaml
+│ │ ├── configmap.yaml
+│ │ ├── hpa.yaml
+│ │ ├── postgres-deployment.yaml
+│ │ ├── postgres-service.yaml
+│ │ └── postgress-pvc.yaml
+│ ├── Chart.yaml
+│ └── values.yaml
 
 
 
