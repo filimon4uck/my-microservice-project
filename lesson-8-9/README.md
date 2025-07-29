@@ -12,72 +12,62 @@ This project provisions an AWS infrastructure using **Terraform**, including:
 
 ##  Project Structure
 
+```
 lesson-8-9/
-│
-├── main.tf # Main entry point for Terraform modules
-├── backend.tf # S3 + DynamoDB backend config
-├── outputs.tf # General resource outputs
-│
+├── main.tf                 # Main entry point for Terraform modules
+├── backend.tf              # S3 + DynamoDB backend config
+├── outputs.tf              # General resource outputs
 ├── modules/
-│ ├── s3-backend/
-│ │ ├── s3.tf
-│ │ ├── dynamodb.tf
-│ │ ├── variables.tf
-│ │ └── outputs.tf
-│ │
-│ ├── vpc/
-│ │ ├── vpc.tf
-│ │ ├── routes.tf
-│ │ ├── variables.tf
-│ │ └── outputs.tf
-│ │
-│ ├── ecr/
-│ │ ├── ecr.tf
-│ │ ├── variables.tf
-│ │ └── outputs.tf
-│ │
-│ ├── eks/
-│ │ ├── eks.tf
-│ │ ├── aws_ebs_csi_driver.tf
-│ │ ├── variables.tf
-│ │ └── outputs.tf
-│ │
-│ ├── jenkins/
-│ │ ├── jenkins.tf
-│ │ ├── variables.tf
-│ │ ├── providers.tf
-│ │ ├── values.yaml
-│ │ └── outputs.tf
-│ │
-│ └── argo_cd/
-│ ├── argo.tf
-│ ├── variables.tf
-│ ├── providers.tf
-│ ├── values.yaml
-│ ├── outputs.tf
-│ └── charts/
-│ ├── Chart.yaml
-│ ├── values.yaml
-│ └── templates/
-│ ├── application.yaml
-│ └── repository.yaml
-│
-├── charts/
-│ └── django-app/
-│ ├── templates/
-│ │ ├── deployment.yaml
-│ │ ├── service.yaml
-│ │ ├── configmap.yaml
-│ │ ├── hpa.yaml
-│ │ ├── postgres-deployment.yaml
-│ │ ├── postgres-service.yaml
-│ │ └── postgress-pvc.yaml
-│ ├── Chart.yaml
-│ └── values.yaml
-
-
-
----
+│   ├── s3-backend/
+│   │   ├── s3.tf
+│   │   ├── dynamodb.tf
+│   │   ├── variables.tf
+│   │   └── outputs.tf
+│   ├── vpc/
+│   │   ├── vpc.tf
+│   │   ├── routes.tf
+│   │   ├── variables.tf
+│   │   └── outputs.tf
+│   ├── ecr/
+│   │   ├── ecr.tf
+│   │   ├── variables.tf
+│   │   └── outputs.tf
+│   ├── eks/
+│   │   ├── eks.tf
+│   │   ├── aws_ebs_csi_driver.tf
+│   │   ├── variables.tf
+│   │   └── outputs.tf
+│   ├── jenkins/
+│   │   ├── jenkins.tf
+│   │   ├── variables.tf
+│   │   ├── providers.tf
+│   │   ├── values.yaml
+│   │   └── outputs.tf
+│   └── argo_cd/
+│       ├── argo.tf
+│       ├── variables.tf
+│       ├── providers.tf
+│       ├── values.yaml
+│       ├── outputs.tf
+│       └── charts/
+│           ├── Chart.yaml
+│           ├── values.yaml
+│           └── templates/
+│               ├── application.yaml
+│               └── repository.yaml
+│           └── charts/
+│               └── django-app/
+│                   ├── Chart.yaml
+│                   ├── values.yaml
+│                   └── templates/
+│                       ├── deployment.yaml
+│                       ├── service.yaml
+│                       ├── configmap.yaml
+│                       ├── hpa.yaml
+│                       ├── postgres-deployment.yaml
+│                       ├── postgres-service.yaml
+│                       └── postgress-pvc.yaml
+```
 
 ## 📦 Modules
 
