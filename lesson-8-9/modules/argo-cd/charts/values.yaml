@@ -1,27 +1,27 @@
 applications:
-  - name: django_app
-    namespace: default
+  - name: django-app
+    namespace: argocd
     project: default
     source:
-      repoURL: <https://github.com/YOUR_USERNAME/example-repo.git>
-      path: django-chart
-      targetRevision: main
+      repoURL: https://github.com/filimon4uck/my-microservice-project.git
+      path: lesson-8-9/charts/django-app
+      targetRevision: lesson-8-9
       helm:
         valueFiles:
           - values.yaml
     destination:
-      server: <https://kubernetes.default.svc>
-      namespace: default
+      server: https://kubernetes.default.svc
+      namespace: argocd
     syncPolicy:
       automated:
         prune: true
         selfHeal: true
 
 repositories:
-  - name: example-app
-    url: <https://github.com/YOUR_USERNAME/example-repo.git>
-    username: YOUR_USERNAME
-    password: YOUR_PASS
+  - name: django-app
+    url: https://github.com/filimon4uck/my-microservice-project.git
+    username:
+    password:
 
 repoConfig:
   insecure: "true"

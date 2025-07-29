@@ -7,17 +7,20 @@ metadata:
 spec:
   project: {{ .project | default "default" }}
   source:
-    repoURL: {{ .source.repoURL }}
-    path: {{ .source.path }}
+    repoURL: {{ .source.repoURL | quote }}
+    path: {{ .source.path | quote }}
     targetRevision: {{ .source.targetRevision | quote }}
     {{- if .source.helm }}
-    helm:
-      {{- toYaml .source.helm | nindent 6 }}
+     helm:
+      parameters:
+        {{- toYaml .source.parameters | nindent 8 }}
     {{- end }}
   destination:
     server: {{ .destination.server | quote }}
     namespace: {{ .destination.namespace | quote }}
+  {{- if .syncPolicy }}
   syncPolicy:
     {{- toYaml .syncPolicy | nindent 4 }}
+  {{- end }}
 ---
 {{- end }}
