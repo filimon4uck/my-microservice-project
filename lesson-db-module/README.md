@@ -126,7 +126,7 @@ lesson-db-module/
   - `Application` resource
   - `Repository` config
 - Argo CD auto-syncs Kubernetes state based on Git updates.
-### 6. RDS (`modules/rds`)
+### 7. RDS (`modules/rds`)
 - **Universal Terraform module** for provisioning either a standard **RDS instance** or an **Aurora Cluster**.
 - Controlled via the `use_aurora` variable:
   - `true` → deploys an **Aurora Cluster** with a writer instance.
