@@ -29,7 +29,7 @@ spec:
 
   environment {
     ECR_REGISTRY = "518036921225.dkr.ecr.eu-central-1.amazonaws.com"
-    IMAGE_NAME   = "lesson-7-ecr"
+    IMAGE_NAME   = "lesson-7-ecr-yurii-demo"
     IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
 
     COMMIT_EMAIL = "jenkins@localhost"
@@ -61,9 +61,9 @@ spec:
             sh '''
               git config --global --add safe.directory /home/jenkins/agent/workspace/django-docker
               git clone https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
-              git checkout lesson-8-9
+              git checkout final_project
               ls -la
-              cd ./lesson-8-9/charts/django-app
+              cd ./final_project/charts/django-app
               sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
 
               git config user.email "$COMMIT_EMAIL"
@@ -72,7 +72,7 @@ spec:
               git add values.yaml
               git commit -m "Update image tag to $IMAGE_TAG" || echo "No changes to commit"
               git remote set-url origin https://$GIT_USERNAME:$GIT_PAT@github.com/filimon4uck/my-microservice-project.git
-              git push origin lesson-8-9
+              git push origin final_project
             '''
           }
         }
