@@ -9,39 +9,10 @@ applications:
       helm:
         valueFiles:
           - values.yaml
-        parameters:
-          - name: config.DATABASE_ENGINE
-            value: postgresql
-          - name: config.DATABASE_NAME
-            value: mydb
-          - name: config.DATABASE_USERNAME
-            value: user
-          - name: config.DATABASE_PASSWORD
-            value: password
-          - name: config.DATABASE_HOST
-            value: db-host
-          - name: config.DATABASE_PORT
-            value: "5432"
-    
     destination:
       server: https://kubernetes.default.svc
-      namespace: argocd
+      namespace: default
     syncPolicy:
       automated:
         prune: true
         selfHeal: true
-
-config:
-  DATABASE_ENGINE: postgresql
-  DATABASE_NAME: mydb
-  DATABASE_USERNAME: user
-  DATABASE_PASSWORD: password
-  DATABASE_HOST: db-host
-  DATABASE_PORT: "5432"
-
-
-# repositories:
-#   - name: django-app
-#     url: https://github.com/filimon4uck/my-microservice-project.git
-#     insecure: true
-#     enableLfs: true
