@@ -22,6 +22,7 @@ applications:
             value: db-host
           - name: config.DATABASE_PORT
             value: "5432"
+    
     destination:
       server: https://kubernetes.default.svc
       namespace: argocd
@@ -30,6 +31,13 @@ applications:
         prune: true
         selfHeal: true
 
+config:
+  DATABASE_ENGINE: postgresql
+  DATABASE_NAME: mydb
+  DATABASE_USERNAME: user
+  DATABASE_PASSWORD: password
+  DATABASE_HOST: db-host
+  DATABASE_PORT: "5432"
 
 
 # repositories:
