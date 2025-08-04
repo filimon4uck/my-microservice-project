@@ -29,7 +29,7 @@ spec:
 
   environment {
     ECR_REGISTRY = "804054839611.dkr.ecr.eu-central-1.amazonaws.com"
-    IMAGE_NAME   = "lesson-7-ecr-yurii-demo"
+    IMAGE_NAME   = "lesson-7-ecr"
     IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
 
     COMMIT_EMAIL = "jenkins@localhost"
