@@ -1,8 +1,8 @@
 
 module "s3_backend" {
     source = "./modules/s3-backend"
-    bucket_name = "terraform-state-bucket-homework-5-007"
-    table_name = "terraform-locks"
+    bucket_name = "terraform-state-bucket-homework-5-007-yurii-demo"
+    table_name = "terraform-locks-yurii-demo"
 }
 
 
@@ -12,7 +12,7 @@ module "vpc" {
   public_subnets     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   private_subnets    = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
   availability_zones = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
-  vpc_name           = "lesson-7-vpc"
+  vpc_name           = "lesson-7-vpc-yurii-demo"
 }
 
 
@@ -24,7 +24,7 @@ module "ecr" {
 
 module "eks" {
   source          = "./modules/eks"          
-  cluster_name    = "eks-cluster"            
+  cluster_name    = "eks-cluster-yurii-demo"            
   subnet_ids      = module.vpc.public_subnets
   instance_type   = "t3.medium"               
   desired_size    = 2                       
@@ -81,7 +81,7 @@ module "argo_cd" {
 module "rds" {
   source = "./modules/rds"
 
-  name                       = "myapp-db"
+  name                       = "myapp-db-yurii-demo"
   use_aurora                 = true
   aurora_instance_count      = 2
 
